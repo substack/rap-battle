@@ -15,7 +15,7 @@ dnode.connect(8081, function (remote, conn) {
     });
     
     em.on('end', function () {
-        console.log('Battle finished.');
+        console.log('---\nBattle finished.');
     });
     
     em.on('rap', function (name, msg) {

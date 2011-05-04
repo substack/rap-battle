@@ -12,21 +12,24 @@ freestyle(s, function (r) {
 function session (r, remote, conn) {
     var em = new EventEmitter;
     
-    var lastMsg = null;
+    var lastWord = null;
     
     em.on('rap', function (name, msg) {
         console.log('<' + name + '> ' + msg);
-        lastMsg = msg;
+        lastWord = msg.split(/\s+/).slice(-1)[0];
     });
     
     em.on('round', function (name, msg) {
-        lastMsg = null;
+        lastWord = null;
     });
     
     remote.watch(em.emit.bind(em));
     
     function challenge (cb) {
-        cb(r.prose(lastMsg, 10))
+        var line = r.prose(lastWord, 15).join(' ');
+        setTimeout(function () {
+            cb(line)
+        }, 8000);
     }
     
     remote.rap(challenge, function (err) {
