@@ -27,9 +27,7 @@ function session (r, remote, conn) {
     
     function challenge (cb) {
         var line = r.prose(lastWord, 15).join(' ');
-        setTimeout(function () {
-            cb(line)
-        }, 8000);
+        cb(line);
     }
     
     remote.rap(challenge, function (err) {
