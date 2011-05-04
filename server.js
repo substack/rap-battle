@@ -25,9 +25,9 @@ var contest = {
     },
     round : function (cb) {
         Seq.ap(competitors)
-            .seqEach_(function (next, challenge) {
-                challenge(function (msg) {
-                    context.emit(msg);
+            .seqEach_(function (next, competitor) {
+                competitor.challenge(function (msg) {
+                    context.emit('rap', competitor.name, msg);
                     next();
                 });
             })
@@ -39,6 +39,10 @@ var contest = {
 dnode(function (client, conn) {
     this.watch = function (emit) {
         watchers[conn.id] = emit;
+        
+        conn.on('end', function () {
+            delete watchers[conn.id];
+        });
     };
     
     this.rap = function (challenge, cb) {
@@ -46,7 +50,10 @@ dnode(function (client, conn) {
             cb('A client by that name is already competing');
         }
         else {
-            competitors[client.name] = challenge;
+            competitors[client.name] = {
+                challenge : challenge,
+                name : client.name,
+            };
             
             conn.on('end', function () {
                 contest.emit('quit', client.name);
@@ -62,9 +69,15 @@ dnode(function (client, conn) {
             cb('Not enough competitors');
         }
         else {
-            Seq.ap(Array(5)).seqEach(function () {
-                contest.round(this.ok);
-            });
+            contest.emit('begin');
+            Seq.ap(Array(5))
+                .seqEach(function () {
+                    contest.round(this.ok);
+                })
+                .seq(function () {
+                    contest.emit('end');
+                })
+            ;
             cb(null);
         }
     };
