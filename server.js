@@ -23,11 +23,13 @@ var contest = {
             w.apply(null, args);
         });
     },
-    round : function (cb) {
+    round : function (round, cb) {
+        contest.emit('round', round);
+        
         Seq.ap(competitors)
             .seqEach_(function (next, competitor) {
                 competitor.challenge(function (msg) {
-                    context.emit('rap', competitor.name, msg);
+                    contest.emit('rap', competitor.name, msg);
                     next();
                 });
             })
@@ -46,7 +48,10 @@ dnode(function (client, conn) {
     };
     
     this.rap = function (challenge, cb) {
-        if (competitors[client.name]) {
+        if (battling) {
+            cb('A battle is already in progress');
+        }
+        else if (competitors[client.name]) {
             cb('A client by that name is already competing');
         }
         else if (!client.name) {
@@ -67,6 +72,8 @@ dnode(function (client, conn) {
         }
     };
     
+    var battling = false;
+    
     this.battle = function (secret, cb) {
         if (secret !== 'secretsauce') {
             cb('ACCESS DENIED');
@@ -75,12 +82,15 @@ dnode(function (client, conn) {
             cb('Not enough competitors');
         }
         else {
-            contest.emit('begin');
-            Seq.ap(Array(5))
-                .seqEach(function () {
-                    contest.round(this.ok);
+            contest.emit('begin', Object.keys(competitors));
+            battling = true;
+            
+            Seq.ap([0,1,2,3,4])
+                .seqEach(function (round) {
+                    contest.round(round, this.ok);
                 })
                 .seq(function () {
+                    battling = false;
                     contest.emit('end');
                 })
             ;
