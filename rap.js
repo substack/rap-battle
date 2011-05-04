@@ -26,6 +26,10 @@ function session (r, remote, conn) {
     }
     
     remote.rap(challenge, function (err) {
-        if (err) console.error(err);
+        if (err) {
+            console.error(err);
+            conn.end();
+        }
+        else console.log('ready')
     });
 }

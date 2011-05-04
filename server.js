@@ -60,7 +60,10 @@ dnode(function (client, conn) {
             
             conn.on('end', function () {
                 contest.emit('quit', client.name);
+                delete competitors[client.name];
             });
+            
+            cb(null);
         }
     };
     
