@@ -49,6 +49,9 @@ dnode(function (client, conn) {
         if (competitors[client.name]) {
             cb('A client by that name is already competing');
         }
+        else if (!client.name) {
+            cb('Specify a client.name');
+        }
         else {
             competitors[client.name] = {
                 challenge : challenge,
