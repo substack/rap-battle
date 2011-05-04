@@ -26,10 +26,12 @@ var contest = {
     round : function (round, cb) {
         contest.emit('round', round);
         
-        Seq.ap(competitors)
-            .seqEach_(function (next, competitor) {
-                competitor.challenge(function (msg) {
-                    contest.emit('rap', competitor.name, msg);
+        var names = Object.keys(competitors);
+        
+        Seq.ap(names)
+            .seqEach_(function (next, name) {
+                competitors[name].challenge(function (msg) {
+                    contest.emit('rap', name, msg);
                     next();
                 });
             })
@@ -85,7 +87,7 @@ dnode(function (client, conn) {
             contest.emit('begin', Object.keys(competitors));
             battling = true;
             
-            Seq.ap([0,1,2,3,4])
+            Seq(0,1,2,3,4)
                 .seqEach(function (round) {
                     contest.round(round, this.ok);
                 })
