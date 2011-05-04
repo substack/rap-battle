@@ -11,6 +11,7 @@ app.use(browserify({
 var EventEmitter = require('events').EventEmitter;
 var Hash = require('hashish');
 var Seq = require('seq');
+var deck = require('deck');
 var dnode = require('dnode');
 
 var watchers = {};
@@ -26,7 +27,7 @@ var contest = {
     round : function (round, cb) {
         contest.emit('round', round);
         
-        var names = Object.keys(competitors);
+        var names = deck.shuffle(Object.keys(competitors));
         
         Seq.ap(names)
             .seqEach_(function (next, name) {

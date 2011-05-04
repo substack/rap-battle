@@ -19,10 +19,14 @@ function session (r, remote, conn) {
         lastMsg = msg;
     });
     
+    em.on('round', function (name, msg) {
+        lastMsg = null;
+    });
+    
     remote.watch(em.emit.bind(em));
     
     function challenge (cb) {
-        cb(r.couplet(10))
+        cb(r.prose(lastMsg, 10))
     }
     
     remote.rap(challenge, function (err) {
