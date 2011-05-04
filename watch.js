@@ -1,7 +1,7 @@
 var dnode = require('dnode');
 var EventEmitter = require('events').EventEmitter;
 
-dnode(function (remote, conn) {
+dnode.connect(8081, function (remote, conn) {
     var em = new EventEmitter;
     
     em.on('rap', function (name, msg) {
@@ -9,4 +9,4 @@ dnode(function (remote, conn) {
     });
     
     remote.watch(em.emit.bind(em));
-}).connect(8081);
+});
