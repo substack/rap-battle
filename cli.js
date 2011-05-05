@@ -9,6 +9,6 @@ if ([ 'rap', 'server', 'watch' ].indexOf(cmd) < 0) {
 
 spawn(
     'node',
-    [ __dirname + '/' + process.argv[2] + '.js' ]
+    [ __dirname + '/' + cmd + '.js' ]
         .concat(process.argv.slice(3))
 );
