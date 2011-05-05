@@ -5,6 +5,10 @@ var EventEmitter = require('events').EventEmitter;
 $(window).ready(function () {
     var password = null;
     
+    $('#clear').click(function () {
+        $('#battle').empty();
+    });
+    
     dnode.connect(function (remote) {
         var em = new EventEmitter;
         
@@ -38,6 +42,11 @@ $(window).ready(function () {
         
         em.on('end', function () {
             $('#fight').attr('disabled', false);
+            var elem = $('<hr>').appendTo($('#battle'));
+            
+            $('#battle').animate({
+                scrollTop : 10000000
+            }, 400);
         });
         
         em.on('join', function (name) {
@@ -61,13 +70,15 @@ $(window).ready(function () {
             var nick = $('<span>').text('<' + name + '> ');
             var body = $('<span>').text(msg);
             
-            $('<div>')
+            var elem = $('<div>')
                 .addClass('line-' + i)
                 .append(nick)
                 .append(body)
                 .appendTo($('#battle'))
             ;
-            $('#battle').scrollDown($('#battle').scrollTop());
+            $('#battle').animate({
+                scrollTop : 10000000
+            }, 400);
         });
         
         remote.watch(em.emit.bind(em));

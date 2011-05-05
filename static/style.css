@@ -9,7 +9,7 @@ h2 {
 #battle {
     width: 500px; 
     height: 500px;
-    scroll: auto;
+    overflow: auto;
     margin: auto;
     border: 2px black solid;
     padding: 10px;
@@ -17,15 +17,20 @@ h2 {
 
 .line-0 {
     font-size: 20pt;
-    color: rgb(100,100,180)
+    color: rgb(60,60,180)
 }
 
 .line-1 {
     font-size: 20pt;
-    color: rgb(180,100,100)
+    color: rgb(180,60,60)
 }
 
 .line-2 {
     font-size: 20pt;
-    color: rgb(100,180,100)
+    color: rgb(60,180,60)
+}
+
+.line-3 {
+    font-size: 20pt;
+    color: rgb(180,180,60)
 }
