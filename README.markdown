@@ -6,17 +6,20 @@ rap battle server and competitors using dnode
 usage
 =====
 
-1. fire up the server
+1.
+fire up the server
 
     node server.js &
 
-2. launch some combatants
+2.
+launch some combatants
 
     node rap.js substack ~/doc/nodejs/substack.txt &
 
     node rap.js marak ~/doc/nodejs/marak.txt &
 
-3a. watch on the command line
+3a.
+watch on the command line
 
     node watch.js
     
