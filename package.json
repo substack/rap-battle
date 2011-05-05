@@ -1,0 +1,40 @@
+{
+    "name" : "rap-battle",
+    "description" : "Terrible freestyle markov rap server",
+    "version" : "0.0.1",
+    "repository" : {
+        "type" : "git",
+        "url" : "git://github.com/substack/rap-server.git"
+    },
+    "keywords" : [
+        "rap",
+        "battle",
+        "freestyle",
+        "beats"
+    ],
+    "main" : "./index.js",
+    "bin" : {
+        "rap-battle" : "./cli.js"
+    },
+    "directories" : {
+        "lib" : "."
+    },
+    "engines" : {
+        "node" : ">=0.4.0"
+    },
+    "dependencies" : {
+        "freestyle" : ">=0.0.3",
+        "browserify" : ">=0.3.6",
+        "deck" : ">=0.0.3",
+        "express" : ">=2.2.2",
+        "dnode" : ">=0.6.9",
+        "hashish" : ">=0.0.2",
+        "seq" : ">=0.2.4"
+    },
+    "license" : "MIT/X11",
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    }
+}
