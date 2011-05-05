@@ -5,7 +5,8 @@ app.listen(8080);
 
 var browserify = require('browserify');
 app.use(browserify({
-    require : [ 'dnode' ]
+    require : [ 'dnode', 'jquery-browserify' ],
+    entry : __dirname + '/static/main.js',
 }));
 
 var EventEmitter = require('events').EventEmitter;
@@ -65,6 +66,8 @@ dnode(function (client, conn) {
                 challenge : challenge,
                 name : client.name,
             };
+            
+            contest.emit('join', client.name);
             
             conn.on('end', function () {
                 contest.emit('quit', client.name);

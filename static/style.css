@@ -1,0 +1,27 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#battle {
+    width: 500; 
+    margin: auto;
+}
+
+.line-0 {
+    font-size: 20pt;
+    color: rgb(100,100,180)
+}
+
+.line-1 {
+    font-size: 20pt;
+    color: rgb(180,100,100)
+}
+
+.line-2 {
+    font-size: 20pt;
+    color: rgb(100,180,100)
+}

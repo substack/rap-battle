@@ -5,7 +5,7 @@ var fs = require('fs');
 var freestyle = require('freestyle');
 var s = fs.createReadStream(process.argv[3]);
 
-freestyle(s, function (r) {
+freestyle(s, 2, function (r) {
     dnode({ name : process.argv[2] }).connect(8081, session.bind({}, r));
 });
 
