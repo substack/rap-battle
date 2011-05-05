@@ -15,7 +15,6 @@ function session (r, remote, conn) {
     var lastWord = null;
     
     em.on('rap', function (name, msg) {
-        console.log('<' + name + '> ' + msg);
         lastWord = msg.split(/\s+/).slice(-1)[0];
     });
     
@@ -27,6 +26,7 @@ function session (r, remote, conn) {
     
     function challenge (cb) {
         var line = r.prose(lastWord, 15).join(' ');
+        console.log(line);
         cb(line);
     }
     
