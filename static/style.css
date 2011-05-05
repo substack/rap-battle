@@ -7,8 +7,12 @@ h2 {
 }
 
 #battle {
-    width: 500; 
+    width: 500px; 
+    height: 500px;
+    scroll: auto;
     margin: auto;
+    border: 2px black solid;
+    padding: 10px;
 }
 
 .line-0 {

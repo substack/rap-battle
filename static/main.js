@@ -20,7 +20,7 @@ $(window).ready(function () {
         });
         
         em.on('battle', function (competitors) {
-            $('#fight').empty();
+            $('#battle').empty();
             $('#vs').text(competitors.join(' vs '));
             competitors.forEach(function (name) {
                 var i = rappers.indexOf(name);
@@ -67,6 +67,7 @@ $(window).ready(function () {
                 .append(body)
                 .appendTo($('#battle'))
             ;
+            $('#battle').scrollDown($('#battle').scrollTop());
         });
         
         remote.watch(em.emit.bind(em));

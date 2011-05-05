@@ -46,6 +46,11 @@ dnode(function (client, conn) {
     this.watch = function (emit) {
         watchers[conn.id] = emit;
         
+        Object.keys(competitors).forEach(function (name) {
+            // so users always show up when a watcher connects
+            emit('join', name);
+        });
+        
         conn.on('end', function () {
             delete watchers[conn.id];
         });
@@ -91,7 +96,8 @@ dnode(function (client, conn) {
             contest.emit('begin', Object.keys(competitors));
             battling = true;
             
-            Seq(0,1,2,3,4)
+            var rounds = [ 0 ]; // [ 0, 1, 2, 3, 4 ]
+            Seq.ap(rounds)
                 .seqEach(function (round) {
                     contest.round(round, this.ok);
                 })
